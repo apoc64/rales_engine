@@ -19,6 +19,14 @@ FactoryBot.define do
     merchant
     customer
     status 'shipped'
+
+    factory :pending_invoice do
+      merchant
+      customer
+      status 'pending'
+      created_at '2012-03-25 09:54:09 UTC'
+      updated_at '2012-03-26 09:54:09 UTC'
+    end
   end
 
 end
