@@ -11,6 +11,10 @@ Rails.application.routes.draw do
       get '/items/find_all', to: 'items/search#index'
       resources :items, only: [:index, :show]
 
+      get '/merchants/find', to: 'merchants/search#show'
+      get '/merchants/find_all', to: 'merchants/search#index'
+      resources :merchants, except: [:new, :edit]
+      resources :transactions, except: [:new, :edit]
     end
   end
 end
