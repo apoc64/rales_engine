@@ -55,4 +55,37 @@ describe 'Invoice API' do
     invoice = JSON.parse(response.body)
     expect(invoice["id"]).to eq(original_invoice.id)
   end
+
+  it 'can find an invoice by status' do
+    create_list(:merchant, 1)
+    create_list(:invoice, 2)
+    original_invoice = create(:pending_invoice)
+
+    get "/api/v1/invoices/find?status=#{original_invoice.status}"
+    expect(response).to be_successful
+    invoice = JSON.parse(response.body)
+    expect(invoice["id"]).to eq(original_invoice.id)
+  end
+
+  it 'can find an invoice by created_at' do
+    create_list(:merchant, 1)
+    create_list(:invoice, 2)
+    original_invoice = create(:pending_invoice)
+
+    get "/api/v1/invoices/find?created_at=#{original_invoice.created_at}"
+    expect(response).to be_successful
+    invoice = JSON.parse(response.body)
+    expect(invoice["id"]).to eq(original_invoice.id)
+  end
+
+  it 'can find an invoice by created_at' do
+    create_list(:merchant, 1)
+    create_list(:invoice, 2)
+    original_invoice = create(:pending_invoice)
+
+    get "/api/v1/invoices/find?updated_at=#{original_invoice.updated_at}"
+    expect(response).to be_successful
+    invoice = JSON.parse(response.body)
+    expect(invoice["id"]).to eq(original_invoice.id)
+  end
 end
