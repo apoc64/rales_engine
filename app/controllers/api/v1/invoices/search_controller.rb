@@ -5,6 +5,12 @@ class Api::V1::Invoices::SearchController < ApplicationController
     end
   end
 
+  def index
+    if !invoice_params.empty?
+      render json: Invoice.where(invoice_params)
+    end
+  end
+
   private
 
   def invoice_params
