@@ -4,6 +4,7 @@ namespace :api do
   namespace :v1 do
     resources :invoices, only: [:index]
     resources :merchants, except: [:new, :edit]
+    resources :transactions, except: [:new, :edit]
   end
 end
 end
