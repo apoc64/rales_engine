@@ -6,6 +6,8 @@ describe 'it returns all invoices' do
 
     get "/api/v1/invoices"
 
-    assert(response.body).to eq(invoice1.id)
+    expect(response).to be_successful
+    body = JSON.parse(response.body)
+    expect(body.first["id"]).to eq(invoice1.id)
   end
 end
