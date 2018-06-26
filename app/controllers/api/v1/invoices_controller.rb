@@ -1,5 +1,9 @@
 class Api::V1::InvoicesController < ApplicationController
   def index
-    render(json: Invoice.select('id, customer_id, merchant_id, status'))
+    render json: Invoice.all
+  end
+
+  def show
+    render json: Invoice.find(params[:id])
   end
 end
