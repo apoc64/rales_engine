@@ -27,6 +27,13 @@ FactoryBot.define do
     name Faker::Lebowski.character
     description Faker::Lebowski.quote
     unit_price 5000
+
+    factory :other_item do
+      merchant
+      name Faker::Lebowski.character
+      description Faker::Lebowski.quote
+      unit_price 5000
+    end
   end
 
 end
