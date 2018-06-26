@@ -60,7 +60,7 @@ ActiveRecord::Schema.define(version: 2018_06_25_232431) do
   end
 
   create_table "transactions", force: :cascade do |t|
-    t.integer "credit_card_number"
+    t.bigint "credit_card_number"
     t.integer "credit_card_expiration"
     t.string "result"
     t.bigint "invoice_id"

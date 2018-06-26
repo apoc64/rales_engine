@@ -17,6 +17,18 @@ namespace :import do
     puts "Merchants imported: #{Merchant.count}"
   end
 
+  task customers: :environment do
+    customers = CSV.open('../data/sales_engine/data/customers.csv', headers: true, header_converters: :symbol)
+    customers.each do |customer|
+      Customer.create(id: customer[:id],
+        first_name: customer[:first_name],
+        last_name: customer[:last_name],
+        created_at: customer[:created_at],
+        updated_at: customer[:updated_at])
+      end
+      puts "Customers imported: #{Customer.count}"
+    end
+
   task invoices: :environment do
     invoices = CSV.open('../data/sales_engine/data/invoices.csv', headers: true, header_converters: :symbol)
     invoices.each do |invoice|
@@ -28,18 +40,8 @@ namespace :import do
                       updated_at: invoice[:updated_at])
     end
     puts "Invoices imported: #{Invoice.count}"
-    
-  task customers: :environment do
-    customers = CSV.open('../data/sales_engine/data/customers.csv', headers: true, header_converters: :symbol)
-    customers.each do |customer|
-      Customer.create(id: customer[:id],
-                      first_name: customer[:first_name],
-                      last_name: customer[:last_name],
-                      created_at: customer[:created_at],
-                      updated_at: customer[:updated_at])
-    end
-    puts "Customers imported: #{Customer.count}"
   end
+
 
   task transactions: :environment do
     transactions = CSV.open('../data/sales_engine/data/transactions.csv', headers: true, header_converters: :symbol)
@@ -54,5 +56,33 @@ namespace :import do
                          updated_at: transaction[:updated_at])
     end
     puts "Transactions imported: #{Transaction.count}"
+  end
+
+  task items: :environment do
+    items = CSV.open('../data/sales_engine/data/items.csv', headers: true, header_converters: :symbol)
+    items.each do |item|
+      Item.create(id: item[:id],
+                  name: item[:name],
+                  description: item[:description],
+                  unit_price: item[:unit_price],
+                  merchant_id: item[:merchant_id],
+                  created_at: item[:created_at],
+                  updated_at: item[:updated_at])
+    end
+    puts "Items imported: #{Item.count}"
+  end
+
+  task invoice_items: :environment do
+    invoice_items = CSV.open('../data/sales_engine/data/invoice_items.csv', headers: true, header_converters: :symbol)
+    invoice_items.each do |invoice_item|
+      InvoiceItem.create(id: invoice_item[:id],
+                         item_id: invoice_item[:item_id],
+                         invoice_id: invoice_item[:invoice_id],
+                         quantity: invoice_item[:quantity],
+                         unit_price: invoice_item[:unit_price],
+                         created_at: invoice_item[:created_at],
+                         updated_at: invoice_item[:updated_at])
+    end
+    puts "InvoiceItems imported: #{InvoiceItem.count}"
   end
 end
