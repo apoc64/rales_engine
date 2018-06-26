@@ -19,7 +19,7 @@ class Api::V1::MerchantsController < ApplicationController
     Merchant.delete(params[:id])
   end
 
-private
+  private
 
   def merchant_params
     params.require(:merchant).permit(:name)
