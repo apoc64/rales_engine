@@ -32,12 +32,25 @@ describe 'Invoice API' do
   end
 
   it 'can find an invoice by customer id' do
+    # Eliminate issue with all ids being the same:
     create_list(:merchant, 1)
     create_list(:invoice, 2)
 
     original_invoice = create(:invoice)
 
     get "/api/v1/invoices/find?customer_id=#{original_invoice.customer_id}"
+    expect(response).to be_successful
+    invoice = JSON.parse(response.body)
+    expect(invoice["id"]).to eq(original_invoice.id)
+  end
+
+  it 'can find an invoice by merchant id' do
+    create_list(:merchant, 1)
+    create_list(:invoice, 2)
+
+    original_invoice = create(:invoice)
+
+    get "/api/v1/invoices/find?merchant_id=#{original_invoice.merchant_id}"
     expect(response).to be_successful
     invoice = JSON.parse(response.body)
     expect(invoice["id"]).to eq(original_invoice.id)
