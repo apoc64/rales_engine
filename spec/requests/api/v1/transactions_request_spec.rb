@@ -34,4 +34,7 @@ describe 'Transaction API' do
     expect(Transaction.count).to eq(0)
     expect{Transaction.find(transaction.id)}.to raise_error(ActiveRecord::RecordNotFound)
   end
+
+  it "can return " do
+  end
 end
