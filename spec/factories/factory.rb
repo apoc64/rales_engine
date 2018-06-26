@@ -22,4 +22,11 @@ FactoryBot.define do
     end
   end
 
+  factory :item do
+    merchant
+    name Faker::Lebowski.character
+    description Faker::Lebowski.quote
+    unit_price 5000
+  end
+
 end
