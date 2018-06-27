@@ -86,5 +86,16 @@ describe 'Invoice Items API' do
     expect(invoice_item["id"]).to eq(original_ii.id)
   end
 
+  it 'can find all invoice_items by id' do
+    create_list(:invoice_item, 2)
+    original_ii = create(:invoice_item)
+
+    get "/api/v1/invoice_items/find_all?id=#{original_ii.id}"
+
+    expect(response).to be_successful
+    invoice_items = JSON.parse(response.body)
+    expect(invoice_items.count).to eq(1)
+  end
+
 
 end
