@@ -30,14 +30,49 @@ describe 'Invoice Items API' do
     invoice_item = JSON.parse(response.body)
     expect(invoice_item["id"]).to eq(id)
   end
-  #
-  # it 'can find an item by description' do
-  #   create_list(:item, 2)
-  #   original_item = create(:other_item)
-  #
-  #   get "/api/v1/items/find?description=#{original_item.description}"
-  #   expect(response).to be_successful
-  #   item = JSON.parse(response.body)
-  #   expect(item["id"]).to eq(original_item.id)
-  # end
+
+  it 'can find an invoice_item by item id' do
+    create_list(:invoice_item, 2)
+    original_ii = create(:invoice_item)
+
+    get "/api/v1/invoice_items/find?item_id=#{original_ii.item_id}"
+
+    expect(response).to be_successful
+    invoice_item = JSON.parse(response.body)
+    expect(invoice_item["id"]).to eq(original_ii.id)
+  end
+
+  it 'can find an invoice_item by invoice id' do
+    create_list(:invoice_item, 2)
+    original_ii = create(:invoice_item)
+
+    get "/api/v1/invoice_items/find?invoice_id=#{original_ii.invoice_id}"
+
+    expect(response).to be_successful
+    invoice_item = JSON.parse(response.body)
+    expect(invoice_item["id"]).to eq(original_ii.id)
+  end
+
+  it 'can find an invoice_item by quantity' do
+    create_list(:invoice_item, 2)
+    original_ii = create(:invoice_item, quantity: 7)
+
+    get "/api/v1/invoice_items/find?quantity=7"
+
+    expect(response).to be_successful
+    invoice_item = JSON.parse(response.body)
+    expect(invoice_item["id"]).to eq(original_ii.id)
+  end
+
+  it 'can find an invoice_item by unit_price' do
+    create_list(:invoice_item, 2)
+    original_ii = create(:invoice_item, unit_price: 7000)
+
+    get "/api/v1/invoice_items/find?unit_price=70"
+
+    expect(response).to be_successful
+    invoice_item = JSON.parse(response.body)
+    expect(invoice_item["id"]).to eq(original_ii.id)
+  end
+
 end

@@ -14,6 +14,11 @@ class Api::V1::InvoiceItems::SearchController < ApplicationController
   # private
   #
   def invoice_params
-    params.permit(:id, :invoice_id, :item_id, :quantity, :unit_price, :created_at, :updated_at)
+    permitted = params.permit(:id, :invoice_id, :item_id, :quantity, :unit_price, :created_at, :updated_at)
+
+    if permitted[:unit_price]
+      permitted[:unit_price] = (((permitted[:unit_price].to_f) * 100) + 0.0001).round
+    end
+    permitted
   end
 end
