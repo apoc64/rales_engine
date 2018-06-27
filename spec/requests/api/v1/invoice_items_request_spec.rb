@@ -75,4 +75,16 @@ describe 'Invoice Items API' do
     expect(invoice_item["id"]).to eq(original_ii.id)
   end
 
+  it 'can find an invoice_item by created_at' do
+    create_list(:invoice_item, 2)
+    original_ii = create(:invoice_item, created_at: '2012-03-27T14:57:57.000Z')
+
+    get "/api/v1/invoice_items/find?created_at=2012-03-27T14:57:57.000Z"
+
+    expect(response).to be_successful
+    invoice_item = JSON.parse(response.body)
+    expect(invoice_item["id"]).to eq(original_ii.id)
+  end
+
+
 end
