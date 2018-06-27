@@ -16,6 +16,8 @@ Rails.application.routes.draw do
         get '/find_all', to: 'search#index'
         get ':merchant_id/items', to: 'items#index'
         get ':merchant_id/invoices', to: 'invoices#index'
+        get ':merchant_id/customers_with_pending_invoices', to: 'customers#index'
+        get ':merchant_id/favorite_customer', to: 'customers#show'
       end
       resources :merchants, except: [:new, :edit]
 
