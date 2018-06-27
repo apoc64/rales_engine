@@ -38,6 +38,11 @@ Rails.application.routes.draw do
 
       resources :transactions, except: [:new, :edit]
 
+      namespace :invoice_items do
+        get '/find', to: 'search#show'
+        get '/find_all', to: 'search#index'
+      end
+      resources :invoice_items, only: [:index, :show]
     end
   end
 end
