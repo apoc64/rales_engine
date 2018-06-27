@@ -10,6 +10,13 @@ FactoryBot.define do
     result 'Success'
   end
 
+  factory :invoice_item do
+    item
+    invoice
+    unit_price 5000
+    quantity 3
+  end
+
   factory :customer do
     first_name 'Ibuy'
     last_name 'Stuff'
