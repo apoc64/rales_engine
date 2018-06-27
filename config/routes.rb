@@ -36,6 +36,9 @@ Rails.application.routes.draw do
       end
       resources :merchants, except: [:new, :edit]
 
+      namespace :transactions do
+        get ':id/invoice', to: 'invoices#show'
+      end
       resources :transactions, except: [:new, :edit]
 
       namespace :invoice_items do
