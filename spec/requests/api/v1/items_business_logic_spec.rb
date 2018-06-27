@@ -12,12 +12,11 @@ describe 'Items Business Logic API' do
     create(:invoice_item, invoice_id: invoice2.id, item_id: item1.id)
     create(:invoice_item, invoice_id: invoice1.id, item_id: item2.id)
 
-
     get "/api/v1/items/most_revenue?quantity=2"
 
     expect(response).to be_successful
     items = JSON.parse(response.body)
-    expect(items.count).to eq(3)
-    expect(items.first.id).to eq(item1.id)
+    expect(items.count).to eq(2)
+    expect(items.first["id"]).to eq(item1.id)
   end
 end
