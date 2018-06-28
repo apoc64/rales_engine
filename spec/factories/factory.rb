@@ -7,7 +7,14 @@ FactoryBot.define do
     invoice
     credit_card_number 12345667890121234
     credit_card_expiration 0111
-    result 'Success'
+    result 'success'
+
+    factory :failed_transaction do
+      invoice
+      credit_card_number 12335667890121234
+      credit_card_expiration 0123
+      result 'failed'
+    end
   end
 
   factory :invoice_item do
