@@ -19,4 +19,14 @@ describe 'Merchant business logic API' do
     customer = JSON.parse(response.body)
     expect(customer["id"]).to eq(cust2.id)
   end
+
+  it 'returns total revenue for date for all merchants' do
+    create_list(:invoice_item, 3, created_at: '2012-03-25 09:54:09 UTC')
+    create_list(:invoice_item, 2)
+
+    get '/api/v1/merchants/revenue?date=2012-03-25'
+
+    revenue = JSON.parse(response.body)
+    expect(revenue["revenue"]).to eq(450)
+  end
 end
