@@ -52,7 +52,7 @@ FactoryBot.define do
     factory :other_item do
       merchant
       name Faker::Lebowski.character
-      description Faker::Lebowski.quote
+      description "This is not Vietnam,, this is Bowling! There are rules Here.."
       unit_price 5000
     end
   end
