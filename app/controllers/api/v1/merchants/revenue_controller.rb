@@ -1,13 +1,7 @@
 class Api::V1::Merchants::RevenueController < ApplicationController
   def index
-    # binding.pry
-    the_revenue = InvoiceItem.unscoped.select("SUM(unit_price * quantity) AS revenue").where("created_at BETWEEN '#{params[:date]}' AND '#{(Date.parse(params[:date]) + 1)}'")
-    # binding.pry
-    rev = the_revenue
-    puts rev
-    revs = rev.first
-    revvy = revs.revenue
-    total = revvy / 100
-    render json: {"revenue" => total}
+    date = Date.parse("#{params[:date]} 00:00:00 UTC")
+    revenue = Invoice.where("invoices.updated_at BETWEEN '#{date}' AND '#{date + 1}'").joins(:invoice_items).joins(:transactions).where("transactions.result='success'").sum("invoice_items.unit_price * invoice_items.quantity")
+    render json: {"total_revenue" => ((revenue.to_f + 0.0001)/100).round(2).to_s}
   end
 end
