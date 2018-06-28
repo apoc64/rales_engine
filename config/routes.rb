@@ -3,8 +3,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :transactions, except: [:new, :edit]
-
       namespace :items do
         get '/find', to: 'search#show'
         get '/find_all', to: 'search#index'
@@ -38,6 +36,9 @@ Rails.application.routes.draw do
 
       namespace :transactions do
         get ':id/invoice', to: 'invoices#show'
+        get '/find', to: 'search#show'
+        get '/find_all', to: 'search#index'
+        get '/random', to: 'random#show'
       end
       resources :transactions, except: [:new, :edit]
 
