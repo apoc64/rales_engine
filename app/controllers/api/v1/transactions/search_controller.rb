@@ -5,6 +5,12 @@ class Api::V1::Transactions::SearchController < ApplicationController
     end
   end
 
+  def index
+    if !transaction_params.empty?
+      render json: Transaction.where(transaction_params)
+    end
+  end
+
   private
 
   def transaction_params
