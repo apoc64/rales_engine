@@ -3,6 +3,22 @@ require 'rails_helper'
 describe 'Merchant business logic API' do
   xit 'loads customers with pending invoices' do
     # all failed or no transactions
+    id = create(:merchant).id
+    cust1 = create(:customer)
+    cust2 = create(:customer)
+    iid1 = create(:invoice, merchant_id: id, customer_id: cust1.id).id
+    iid2 = create(:invoice, merchant_id: id, customer_id: cust2.id).id
+    iid3 = create(:invoice, merchant_id: id, customer_id: cust2.id).id
+    create(:transaction, invoice_id: iid1)
+    create(:transaction, invoice_id: iid2, result: 'failed')
+    create(:transaction, invoice_id: iid3, result: 'failed')
+
+    get "/api/v1/merchants/#{id}/customers_with_pending_invoices"
+
+    expect(response).to be_successful
+    customers = JSON.parse(response.body)
+    # binding.pry
+    expect(customers.count).to eq(1)
   end
 
   it 'loads the merchants favorite customer' do
