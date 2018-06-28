@@ -17,7 +17,6 @@ describe 'Merchant business logic API' do
 
     expect(response).to be_successful
     customers = JSON.parse(response.body)
-    # binding.pry
     expect(customers.count).to eq(1)
   end
 
@@ -57,16 +56,16 @@ describe 'Merchant business logic API' do
     expect(merchant.revenue).to eq(expected)
   end
 
-  xit 'returns total revenue for date for all merchants' do
-    invoice = create(:invoice, created_at: '2012-03-25 09:54:09 UTC')
-    create_list(:invoice_item, 3, invoice_id: invoice.id)
+  it 'returns total revenue for date for all merchants' do
+    item = create(:item)
+    invoice = create(:invoice, updated_at: '2012-03-25 09:54:09 UTC')
+    t = Transaction.create(invoice: invoice, result: 'success', credit_card_number: 12345)
+    ii = invoice.invoice_items.create(unit_price: 5000, quantity: 5, item: item)
     create_list(:invoice_item, 2)
-    create(:transaction, invoice_id: invoice.id, result: 'success')
 
     get '/api/v1/merchants/revenue?date=2012-03-25'
-
     revenue = JSON.parse(response.body)
-    expect(revenue["total_revenue"]).to eq("450.00")
+    expect(revenue["total_revenue"]).to eq("250.0")
   end
 
   it 'returns merchants with most reveune' do
