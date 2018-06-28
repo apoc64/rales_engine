@@ -27,6 +27,7 @@ Rails.application.routes.draw do
         get '/find', to: 'search#show'
         get '/find_all', to: 'search#index'
         get '/revenue', to: 'revenue#index'
+        get '/most_revenue', to: 'most_revenue#index'
         get ':merchant_id/items', to: 'items#index'
         get ':merchant_id/invoices', to: 'invoices#index'
         get ':merchant_id/customers_with_pending_invoices', to: 'customers#index'

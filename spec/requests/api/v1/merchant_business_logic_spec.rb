@@ -52,4 +52,18 @@ describe 'Merchant business logic API' do
     revenue = JSON.parse(response.body)
     expect(revenue["total_revenue"]).to eq("450.00")
   end
+
+  it 'returns merchants with most reveune' do
+    merch1 = create(:merchant)
+    merch2 = create(:merchant)
+    invoice = create(:invoice, merchant_id: merch1.id)
+    create_list(:invoice_item, 3, invoice_id: invoice.id)
+    create_list(:invoice_item, 2)
+    create(:transaction, invoice_id: invoice.id, result: 'success')
+
+    get "/api/v1/merchants/most_revenue?quantity=1"
+
+    merchants = JSON.parse(response.body)
+    expect(merchants.count).to eq(1)
+  end
 end
