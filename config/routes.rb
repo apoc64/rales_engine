@@ -3,9 +3,6 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      # get '/merchants/find', to: 'merchants/search#show'
-      # get '/merchants/find_all', to: 'merchants/search#index'
-      # resources :merchants, except: [:new, :edit]
       resources :transactions, except: [:new, :edit]
 
       namespace :items do
@@ -34,6 +31,7 @@ Rails.application.routes.draw do
         get ':merchant_id/invoices', to: 'invoices#index'
         get ':merchant_id/customers_with_pending_invoices', to: 'customers#index'
         get ':merchant_id/favorite_customer', to: 'customers#show'
+        get ':id/revenue', to: 'revenue#show'
       end
       resources :merchants, except: [:edit, :new]
 
