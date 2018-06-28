@@ -10,6 +10,12 @@ class Item < ApplicationRecord
   default_scope { order(:id) }
 
   def self.highest_revenue_items(quantity)
-    Item.select("items.*, SUM(invoice_items.unit_price * invoice_items.quantity) AS revenue").joins(:invoice_items).group(:id).order("revenue DESC").limit(quantity)
+    Item.find_by_sql(
+      "SELECT items.*, SUM(invoice_items.unit_price * invoice_items.quantity) AS revenue
+      FROM items
+      INNER JOIN invoice_items ON invoice_items.item_id=items.id
+      GROUP BY items.id
+      ORDER BY revenue DESC
+      LIMIT #{quantity}")
   end
 end
