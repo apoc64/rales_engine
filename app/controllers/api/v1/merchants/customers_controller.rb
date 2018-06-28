@@ -1,12 +1,12 @@
 class Api::V1::Merchants::CustomersController < ApplicationController
   def index
-    # Will Revisit - Needs to pass spec
-    customers = Customer.joins(:invoices).where("invoices.merchant_id=#{params[:merchant_id]} AND invoices.status='pending'")
+    customers = Customer.customers_with_pending_invoices_for_merchant(params[:merchant_id])
     render json: customers
   end
 
   def show
-    customer = Customer.select('customers.*, COUNT(invoices.id) AS icount').joins(:invoices).where("invoices.merchant_id=#{params[:merchant_id]}").group('customers.id').order('icount DESC').first
+    merchant_id = params[:merchant_id]
+    customer = Customer.favorite_customer_for_merchant(merchant_id)
     render json: customer
   end
 end
