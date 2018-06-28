@@ -1,17 +1,6 @@
 class Api::V1::Merchants::CustomersController < ApplicationController
   def index
-    # Will Revisit - Needs to pass spec
-    customers = Customer.find_by_sql("SELECT customers.* FROM customers
-      INNER JOIN invoices ON invoices.customer_id=customers.id
-      INNER JOIN transactions ON transactions.invoice_id=invoices.id
-      WHERE invoices.merchant_id=#{params[:merchant_id]}
-      EXCEPT SELECT customers.* FROM customers
-      INNER JOIN invoices ON invoices.customer_id=customers.id
-      INNER JOIN transactions ON transactions.invoice_id=invoices.id
-      WHERE transactions.result='success' AND invoices.merchant_id=#{params[:merchant_id]}")
-    # AND (SELECT COUNT(result) FROM transactions WHERE result='success')=0 GROUP BY customers.id")
-    # byebug
-    # binding.pry
+    customers = Customer.customers_with_pending_invoices_for_merchant(params[:merchant_id])
     render json: customers
   end
 

@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'Merchant business logic API' do
-  xit 'loads customers with pending invoices' do
+  it 'loads customers with pending invoices' do
     # all failed or no transactions
     id = create(:merchant).id
     cust1 = create(:customer)
