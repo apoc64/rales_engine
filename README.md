@@ -51,4 +51,5 @@ Once running, the app will respopnt to HTTP GET requests with the appropriate JS
 
 ## Authors
 Justine Troyke - https://github.com/justinetroyke
+
 Steven Schwedt - https://github.com/apoc64
