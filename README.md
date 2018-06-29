@@ -1,21 +1,43 @@
-# README
+# Rales Engine
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This Rails API app provides json information related to an ecommerce site. 
 
-Things you may want to cover:
+# This app uses:
+* Rails 5.2
+* Ruby 2.4.1
 
-* Ruby version
+# With the following gems:
+* active_model_serializers
+* rspec-rails
+* pry
+* simplecov
+* active_designer
+* shoulda-matchers
+* factory_bot_rails
+* faker
 
-* System dependencies
+# Installing
+To install dependencies after cloning the app, run:
+'bundle install'
 
-* Configuration
+To set up the database:
+'rails db:create'
+'rails db:migrate'
 
-* Database creation
+# To load data from CSV files:
+This data comes from CSV files from the Sales Engine project, which can be found here: https://github.com/turingschool-examples/sales_engine/tree/master/data
+Clone this project into the parent folder of this project, then run:
 
-* Database initialization
+'rake import:merchants'
+'rake import:customers'
+'rake import:invoices'
+'rake import:transactions'
+'rake import:items'
+'rake import:invoice_items'
 
-* How to run the test suite
+# Testing
+
+run 'rspec'
 
 * Services (job queues, cache servers, search engines, etc.)
 
