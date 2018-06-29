@@ -35,9 +35,9 @@ describe 'Merchant business logic API' do
     expect(customer["id"]).to eq(cust2.id)
   end
 
-  xit 'returns the total revenue of successful transactions for a specific merchant' do
+  it 'returns the total revenue of successful transactions for a specific merchant' do
     merchant = create(:merchant)
-    merchant_2 = create(:merchant)
+    create(:merchant)
     invoice_id = create(:invoice, merchant_id: merchant.id).id
     invoice_id_2 = create(:invoice, merchant_id: merchant.id).id
     invoice_id_3 = create(:invoice, merchant_id: merchant.id).id
@@ -49,11 +49,10 @@ describe 'Merchant business logic API' do
     get "/api/v1/merchants/#{merchant.id}/revenue"
     expect(response).to be_successful
 
-    customer = JSON.parse(response.body)
+    revenue = JSON.parse(response.body)
 
     expect(merchant["id"]).to eq(merchant.id)
-    expected = merchant.revenue.to_f
-    expect(merchant.revenue).to eq(expected)
+    expect(revenue).to eq("revenue"=>"450.0")
   end
 
   it 'returns total revenue for date for all merchants' do
@@ -80,5 +79,24 @@ describe 'Merchant business logic API' do
 
     merchants = JSON.parse(response.body)
     expect(merchants.count).to eq(1)
+  end
+
+  it 'returns the total revenue of a merchant for successful transactions for a specific date' do
+    merch1 = create(:merchant)
+    merch2 = create(:merchant)
+    invoice = create(:invoice, merchant_id: merch1.id)
+    invoice_item = create(:invoice_item, invoice_id: invoice.id)
+    invoice_item = create(:invoice_item)
+    transaction = create(:transaction, invoice_id: invoice.id)
+    transaction2 = create(:transaction, invoice_id: invoice.id)
+    transaction3 = create(:failed_transaction, invoice_id: invoice.id)
+
+
+    get "/api/v1/merchants/#{merch1.id}/revenue?date=#{invoice_item.created_at}"
+
+    expect(response).to be_success
+
+    revenue = JSON.parse(response.body)
+    expect(revenue).to eq("revenue"=>"300.0")
   end
 end
