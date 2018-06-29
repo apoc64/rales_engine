@@ -33,9 +33,13 @@ Clone this project into the parent folder of this project, then run:
 'rake import:merchants'
 
 'rake import:customers'
+
 'rake import:invoices'
+
 'rake import:transactions'
+
 'rake import:items'
+
 'rake import:invoice_items'
 
 ## Testing
