@@ -6,7 +6,7 @@ This Rails API app provides json information related to an ecommerce marketplace
 * Rails 5.2
 * Ruby 2.4.1
 
-## With the following gems:
+## With the following gems
 * active_model_serializers
 * rspec-rails
 * pry
