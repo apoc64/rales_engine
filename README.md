@@ -1,6 +1,6 @@
 # Rales Engine
 
-This Rails API app provides json information related to an ecommerce site. 
+This Rails API app provides json information related to an ecommerce marketplace site. This is part of the back end curriculum at the Turing School for Software and Design. Information related to this project can be fount here http://backend.turing.io/module3/projects/rails_engine
 
 ## This app uses
 * Rails 5.2
@@ -17,7 +17,7 @@ This Rails API app provides json information related to an ecommerce site.
 * faker
 
 ## Installing
-To install dependencies after cloning the app, run
+To install dependencies after cloning the app, run:
 
 'bundle install'
 
@@ -38,12 +38,17 @@ Clone this project into the parent folder of this project, then run:
 'rake import:items'
 'rake import:invoice_items'
 
-# Testing
+## Testing
+To run all tests, run:
+'rspec'
 
-run 'rspec'
+## Running Locally
+To run this all locally, run:
+'rails s'
 
-* Services (job queues, cache servers, search engines, etc.)
+This will launch the app on localhost:3000
+Once running, the app will respopnt to HTTP GET requests with the appropriate JSON data based on Active Record and SQL queries to the PostgreSQL database.
 
-* Deployment instructions
-
-* ...
+## Authors
+Justine Troyke - https://github.com/justinetroyke
+Steven Schwedt - https://github.com/apoc64
