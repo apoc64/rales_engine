@@ -36,7 +36,6 @@ Rails.application.routes.draw do
         get ':merchant_id/favorite_customer', to: 'customers#show'
         get ':id/revenue', to: 'revenue#show'
         get '/random', to: 'random#show'
-
       end
       resources :merchants, except: [:edit, :new]
 
