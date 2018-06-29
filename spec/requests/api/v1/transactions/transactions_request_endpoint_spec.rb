@@ -5,7 +5,6 @@ describe 'Transaction API' do
     create_list(:transaction, 3)
 
     get '/api/v1/transactions'
-
     expect(response).to be_successful
 
     transactions = JSON.parse(response.body)
