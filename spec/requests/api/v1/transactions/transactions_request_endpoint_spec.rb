@@ -62,7 +62,6 @@ describe 'Transaction API' do
   end
 
   it "can find a random transaction" do
-    result = 'success'
     create_list(:transaction, 2)
     create_list(:failed_transaction, 6)
 

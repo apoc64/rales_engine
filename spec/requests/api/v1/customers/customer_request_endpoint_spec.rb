@@ -33,4 +33,32 @@ describe 'Customer API' do
     customer = JSON.parse(response.body)
     expect(customer['last_name']).to eq(name)
   end
+
+  it 'finds all matching customers for params' do
+    name = 'Troyke'
+    name2 = 'Steve'
+    t = create_list(:customer, 6, last_name: name)
+    s = create_list(:customer, 2, last_name: name2)
+
+    get "/api/v1/customers/find_all?last_name=#{name}"
+    expect(response).to be_successful
+
+    customers = JSON.parse(response.body)
+    expect(customers.count).to eq(6)
+    customers.each do |customer|
+      expect(customer['last_name']).to eq(name)
+    end
+  end
+
+  it "can find a random customer" do
+    customer = create(:customer, last_name: 'Troyke')
+    create_list(:customer, 2)
+
+    get "/api/v1/customers/random"
+    expect(response).to be_successful
+
+    customer = JSON.parse(response.body)
+    expect(customer.class).to eq(Hash)
+    expect(customer['last_name'].class).to eq(String)
+  end
 end
