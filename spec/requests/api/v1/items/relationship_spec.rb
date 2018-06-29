@@ -3,8 +3,8 @@ require 'rails_helper'
 describe 'Item relationship end point' do
   it 'returns invoice items for specific item' do
     item = create(:item)
-    invoice_item = create(:invoice_item, item_id: item.id)
-    invoice_item2 = create(:invoice_item, item_id: item.id)
+    create(:invoice_item, item_id: item.id)
+    create(:invoice_item, item_id: item.id)
     create(:invoice_item)
 
     get "/api/v1/items/#{item.id}/invoice_items"
