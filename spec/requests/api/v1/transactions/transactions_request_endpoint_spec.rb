@@ -5,7 +5,6 @@ describe 'Transaction API' do
     create_list(:transaction, 3)
 
     get '/api/v1/transactions'
-
     expect(response).to be_successful
 
     transactions = JSON.parse(response.body)
@@ -63,7 +62,6 @@ describe 'Transaction API' do
   end
 
   it "can find a random transaction" do
-    result = 'success'
     create_list(:transaction, 2)
     create_list(:failed_transaction, 6)
 
